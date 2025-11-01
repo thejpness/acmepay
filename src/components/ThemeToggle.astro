@@ -4,26 +4,47 @@ const id = 'theme-toggle';
 
 <button
   id={id}
+  type="button"
   class="glass inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm aria-pressed:opacity-80"
-  aria-pressed="true"
-  aria-label="Toggle theme"
-  on:click={() => {}}
-  client:load
+  aria-pressed="false"
+  aria-label="Toggle colour theme"
 >
   <span class="iconify" data-icon="lucide:sun" aria-hidden="true"></span>
-  <span class="sr-only">Toggle theme</span>
+  <span class="sr-only">Toggle colour theme</span>
 </button>
 
-<script>
-  // tiny client island
-  const btn = document.getElementById('theme-toggle');
-  function current() {
-    return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+<script is:inline>
+  const button = document.getElementById('theme-toggle');
+
+  if (button) {
+    const getStoredTheme = () => {
+      try {
+        return localStorage.getItem('theme');
+      } catch {
+        return null;
+      }
+    };
+
+    const currentTheme = () => (document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+
+    const applyTheme = (theme) => {
+      const next = theme === 'dark' ? 'dark' : 'light';
+      document.documentElement.classList.toggle('dark', next === 'dark');
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+      button.setAttribute('aria-pressed', String(next === 'dark'));
+    };
+
+    const stored = getStoredTheme();
+    if (stored) {
+      applyTheme(stored);
+    } else {
+      applyTheme(currentTheme());
+    }
+
+    button.addEventListener('click', () => {
+      applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+    });
   }
-  function set(theme) {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    try { localStorage.setItem('theme', theme); } catch {}
-    btn?.setAttribute('aria-pressed', String(theme === 'dark'));
-  }
-  btn?.addEventListener('click', () => set(current() === 'dark' ? 'light' : 'dark'));
 </script>

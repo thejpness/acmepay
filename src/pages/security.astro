@@ -1,0 +1,103 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+
+const pillars = [
+  {
+    title: 'Infrastructure',
+    icon: 'lucide:server',
+    copy: 'Redundant, multi-region architecture on SOC 2 Type II certified providers with automated failover and encryption at rest.'
+  },
+  {
+    title: 'Access control',
+    icon: 'lucide:key-square',
+    copy: 'Least-privilege access, hardware security keys, and continuous monitoring keep employee access auditable and revocable.'
+  },
+  {
+    title: 'Continuous testing',
+    icon: 'lucide:scan-search',
+    copy: 'Automated dependency scanning, static code analysis, and third-party penetration tests ensure vulnerabilities are addressed quickly.'
+  }
+];
+---
+
+<Marketing
+  title="AcmePay | Security and trust"
+  description="See how AcmePay protects payments with layered infrastructure, encryption, monitoring, and responsible disclosure practices."
+>
+  <section class="relative isolate overflow-hidden py-24">
+    <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-cyan-500/10 via-transparent to-transparent blur-3xl"></div>
+    <Container>
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs uppercase tracking-[0.45em] text-white/40">Security</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">Security and trust</h1>
+        <p class="mt-4 text-lg text-white/70">
+          AcmePay protects sensitive financial data with layered controls, continuous monitoring, and transparent assurance reports.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <Section eyebrow="Philosophy" title="Security is part of our product roadmap">
+    <div class="glass surface-alt space-y-4 rounded-3xl p-8 text-sm leading-relaxed text-white/70">
+      <p>We embed security reviews at every stage of development. Engineers must complete threat modelling before shipping, and infrastructure teams maintain automated compliance checks against CIS benchmarks.</p>
+      <p>Our customers operate in regulated markets. We partner with external auditors for SOC 2 Type II and PCI DSS attestation, and we provide tailored risk artefacts during due diligence.</p>
+    </div>
+  </Section>
+
+  <Section eyebrow="Pillars" title="Defence in depth">
+    <div class="grid gap-6 md:grid-cols-3">
+      {pillars.map((pillar) => (
+        <FeatureCard title={pillar.title} icon={pillar.icon}>{pillar.copy}</FeatureCard>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Data protection" title="Encryption and monitoring">
+    <div class="grid gap-8 md:grid-cols-2">
+      <div class="glass surface-alt rounded-3xl p-8">
+        <h3 class="text-xl font-semibold">Encryption</h3>
+        <ul class="mt-4 space-y-3 text-sm text-white/70">
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:lock" aria-hidden="true"></span>
+            TLS 1.2+ for data in transit and AES-256 encryption at rest across databases, object storage, and backups.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:shield-question" aria-hidden="true"></span>
+            Tokenisation service keeps sensitive card data isolated from core systems.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:key" aria-hidden="true"></span>
+            Hardware security modules manage encryption keys with strict rotation policies.
+          </li>
+        </ul>
+      </div>
+      <div class="glass surface-alt rounded-3xl p-8">
+        <h3 class="text-xl font-semibold">Monitoring</h3>
+        <ul class="mt-4 space-y-3 text-sm text-white/70">
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:activity" aria-hidden="true"></span>
+            Real-time logging with anomaly detection feeds our security operations centre 24/7.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:bell-ring" aria-hidden="true"></span>
+            Automated alerts for suspicious authentication, privilege escalation, and data access patterns.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:history" aria-hidden="true"></span>
+            Immutable audit logs retained to support compliance investigations and post-incident reviews.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section eyebrow="Responsible disclosure" title="Report a vulnerability">
+    <div class="glass surface-alt rounded-3xl p-8 text-sm leading-relaxed text-white/70">
+      <p>If you believe you have found a security vulnerability, please email <a class="underline decoration-indigo-400/60 underline-offset-4" href="mailto:security@acmepay.com">security@acmepay.com</a> with details. We will acknowledge receipt within 24 hours and keep you informed as we triage and remediate the issue.</p>
+      <p class="mt-4">We ask that you avoid public disclosure until we have resolved the vulnerability. We do not pursue legal action for good-faith research that follows this policy.</p>
+    </div>
+  </Section>
+</Marketing>

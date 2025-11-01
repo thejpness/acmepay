@@ -1,0 +1,110 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+import Container from '../components/Container.astro';
+import PricingTier from '../components/PricingTier.astro';
+import Section from '../components/Section.astro';
+import FAQ from '../components/FAQ.astro';
+import Button from '../components/Button.astro';
+
+const faqs = [
+  {
+    q: 'Do you charge for failed transactions?',
+    a: 'No. Pricing applies to settled transactions only. We monitor performance across gateways to keep acceptance rates healthy.'
+  },
+  {
+    q: 'How long do contracts last?',
+    a: 'Monthly contracts come as standard. Longer terms and tailored SLAs are available if you prefer committed volume arrangements.'
+  },
+  {
+    q: 'What about interchange and network fees?',
+    a: 'We pass through network costs without markups. For cards, you can see the interchange optimisation applied to each payment inside the dashboard.'
+  }
+];
+---
+
+<Marketing
+  title="AcmePay | Pricing and plans"
+  description="Choose the AcmePay plan that fits your payment volumes. Transparent fees, proactive support, and the controls you need to operate confidently."
+>
+  <section class="relative isolate overflow-hidden py-24">
+    <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-fuchsia-500/10 via-transparent to-transparent blur-3xl"></div>
+    <Container>
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs uppercase tracking-[0.45em] text-white/40">Pricing</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">Predictable pricing that grows with your volumes</h1>
+        <p class="mt-4 text-lg text-white/70">
+          Start on a free tier, add automation as you scale, and adapt your agreement as markets or volumes change.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <Button kind="primary" href="/pricing">Start now</Button>
+          <Button kind="secondary" href="/features">Explore features</Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Section eyebrow="Plans" title="Choose a launch pad">
+    <div class="grid gap-6 md:grid-cols-3">
+      <PricingTier
+        name="Launch"
+        price="$0"
+        features={['Includes 2k live transactions', 'Guided onboarding checklist', 'Email and community support']}
+      />
+      <PricingTier
+        name="Growth"
+        price="0.65% + 15c"
+        features={['Monthly volume discounts', 'Dynamic retries and routing', 'Priority support with four-hour responses']}
+        popular
+      />
+      <PricingTier
+        name="Enterprise"
+        price="Custom"
+        features={['Dedicated CSM and solutions support', 'Multi-entity treasury controls', 'Premium SLA with hands-on success']}
+      />
+    </div>
+    <p class="mt-6 text-sm text-white/60">Volume-based pricing applies once you process over $250k per month. Startup and nonprofit terms are available on request.</p>
+  </Section>
+
+  <Section eyebrow="What is included" title="Fair pricing, complete toolkit">
+    <div class="grid gap-8 md:grid-cols-2">
+      <div class="glass surface-alt rounded-3xl p-8">
+        <h3 class="text-xl font-semibold">Always on the house</h3>
+        <ul class="mt-4 space-y-3 text-sm text-white/70">
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:check-circle-2" aria-hidden="true"></span>
+            Sandbox and production environments with separate API keys.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:check-circle-2" aria-hidden="true"></span>
+            Real-time dashboards, exports, and ledger reconciliation tools.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:check-circle-2" aria-hidden="true"></span>
+            Role-based access, audit logging, and enterprise-grade security.
+          </li>
+        </ul>
+      </div>
+      <div class="glass surface-alt rounded-3xl p-8">
+        <h3 class="text-xl font-semibold">Pay as you grow</h3>
+        <ul class="mt-4 space-y-3 text-sm text-white/70">
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:arrows-up-from-line" aria-hidden="true"></span>
+            Elastic pricing for alternative payment methods and local schemes.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:split-square-horizontal" aria-hidden="true"></span>
+            Advanced orchestration add-ons billed on usage, not seats.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:globe" aria-hidden="true"></span>
+            Transparent FX and settlement fees published in your dashboard.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section eyebrow="FAQ" title="Answers before paperwork">
+    <FAQ items={faqs} />
+  </Section>
+</Marketing>

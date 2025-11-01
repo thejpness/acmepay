@@ -1,56 +1,108 @@
 ---
 import Button from './Button.astro';
 
-const heroImg = '/og-image.png'; // replace with product mock later
+const heroImg = '/og-image.png';
 ---
 
 <section class="relative overflow-hidden">
-  <!-- subtle CSS-only parallax: gradient layer moves on scroll via background-attachment -->
-  <div class="pointer-events-none absolute inset-0" style="background: var(--grad-accent); opacity:.12; filter: blur(60px); background-attachment: fixed;"></div>
+  <div class="pointer-events-none absolute inset-0 opacity-60" aria-hidden="true">
+    <div class="absolute -top-32 left-1/2 h-[620px] w-[620px] -translate-x-1/2 rounded-full blur-3xl glow-pulse" style="background:var(--grad-accent);"></div>
+  </div>
 
-  <div class="mx-auto max-w-7xl px-4 py-24 md:py-32 grid md:grid-cols-2 items-center gap-12">
-    <div data-animate="fade-up" class="space-y-6">
-      <p class="text-sm uppercase tracking-[0.2em] text-indigo-300/90">AcmePay</p>
-      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
-        Payments that feel <span class="bg-clip-text text-transparent" style="background:var(--grad-accent)">instant</span>.
-      </h1>
-      <p class="text-lg text-white/70 max-w-prose">
-        Build, launch, and scale with a secure payments platform engineered for modern teams.
-      </p>
-      <div class="flex gap-3">
-        <Button kind="primary" href="/pricing">Start now</Button>
-        <Button kind="secondary" href="/features" ariaLabel="Learn more about features">Learn more</Button>
+  <div class="mx-auto max-w-7xl px-4 py-24 md:py-32">
+    <div class="grid items-center gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
+      <div data-animate="fade-up" class="space-y-8">
+        <div class="stat-pill max-w-fit">
+          <span class="stat-dot"></span>
+          Payments platform for scaling teams
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-semibold tracking-tight text-balance">
+          Ship secure payments with
+          <span class="gradient-text">developer-friendly control</span>.
+        </h1>
+
+        <p class="max-w-xl text-lg text-white/70">
+          AcmePay unifies payments, payouts, and reconciliation so product, operations, and finance teams can launch faster,
+          monitor risk, and close the books in one control centre.
+        </p>
+
+        <div class="flex flex-wrap gap-3">
+          <Button kind="primary" href="/pricing">Start now</Button>
+          <Button kind="secondary" href="/features" ariaLabel="Explore AcmePay features">Explore features</Button>
+        </div>
+
+        <dl class="grid gap-4 pt-8 sm:grid-cols-2">
+          <div class="glass surface-alt rounded-2xl p-5 floating">
+            <dt class="text-xs uppercase tracking-[0.2em] text-white/60">Settlement speed</dt>
+            <dd class="mt-3 text-3xl font-semibold">Up to 40% faster</dd>
+            <p class="mt-1 text-sm text-white/60">Same-day payouts across 190+ corridors for eligible volumes.</p>
+          </div>
+          <div class="glass surface-alt rounded-2xl p-5 floating [animation-delay:1.2s]">
+            <dt class="text-xs uppercase tracking-[0.2em] text-white/60">Platform reliability</dt>
+            <dd class="mt-3 text-3xl font-semibold">99.99% uptime</dd>
+            <p class="mt-1 text-sm text-white/60">Measured across the last 12 months with automated failover.</p>
+          </div>
+        </dl>
       </div>
-    </div>
 
-    <div data-animate="fade-up" class="glass p-4 md:p-6 rounded-3xl">
-      <img src={heroImg} width="1200" height="630" alt="Product interface mockup placeholder" loading="eager" class="rounded-2xl aspect-video object-cover" />
+      <div data-animate="fade-up" class="relative">
+        <div class="absolute -top-10 -right-12 h-56 w-56 rounded-full blur-2xl opacity-80" style="background:var(--grad-surface);"></div>
+        <div class="gradient-border rounded-[2rem]">
+          <div class="glass rounded-[2rem] p-4 md:p-6">
+            <div class="relative overflow-hidden rounded-[1.5rem]">
+              <img
+                src={heroImg}
+                width="1200"
+                height="630"
+                alt="AcmePay dashboard showing settlement status and daily volume"
+                loading="eager"
+                class="aspect-video w-full rounded-[1.5rem] object-cover"
+              />
+              <div class="absolute left-6 top-6 hidden rounded-full border border-white/20 bg-black/40 px-4 py-2 text-xs font-medium uppercase tracking-[0.3em] text-white/80 backdrop-blur md:flex">
+                Live balances
+              </div>
+            </div>
+            <div class="mt-6 flex flex-wrap items-center gap-4">
+              <div class="stat-pill">
+                <span class="stat-dot"></span>
+                12ms average API latency
+              </div>
+              <div class="stat-pill">
+                <span class="stat-dot"></span>
+                250+ local payment methods
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<script>
-  // Option A: zero-dep fade-up using IntersectionObserver + Web Animations
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+<script is:inline>
+  if (typeof window !== 'undefined') {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  if (!reduce && 'IntersectionObserver' in window) {
-    const els = document.querySelectorAll('[data-animate="fade-up"]');
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      const fadeTargets = document.querySelectorAll('[data-animate="fade-up"]');
 
-    const io = new IntersectionObserver((entries, obs) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) {
-          e.target.animate(
-            [
-              { opacity: 0, transform: 'translateY(12px)' },
-              { opacity: 1, transform: 'translateY(0)' }
-            ],
-            { duration: 600, easing: 'ease-out', fill: 'forwards' }
-          );
-          obs.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.2 });
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.animate(
+              [
+                { opacity: 0, transform: 'translateY(12px)' },
+                { opacity: 1, transform: 'translateY(0)' }
+              ],
+              { duration: 600, easing: 'ease-out', fill: 'forwards' }
+            );
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
 
-    els.forEach((el) => io.observe(el));
+      fadeTargets.forEach((el) => observer.observe(el));
+    }
   }
 </script>

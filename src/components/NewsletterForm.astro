@@ -5,44 +5,75 @@
 const id = 'nl';
 ---
 
-<form class="glass p-4 rounded-2xl space-y-3" method="post" action="/api/subscribe" onsubmit="return false" client:load>
+<form
+  class="gradient-border glass surface-alt rounded-3xl space-y-4 p-6 md:p-8"
+  method="post"
+  action="/api/subscribe"
+>
   <div class="sr-only" aria-hidden="true">
-    <label for={`${id}-hp`}>Do not fill</label>
+    <label for={`${id}-hp`}>Leave this field blank</label>
     <input id={`${id}-hp`} name="company" type="text" tabindex="-1" autocomplete="off" />
   </div>
 
-  <label class="block text-sm" for={`${id}-email`}>Email</label>
-  <input id={`${id}-email`} name="email" type="email" required
-    class="w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2"
-    placeholder="you@example.com" inputmode="email" />
-
-  <button class="w-full rounded-xl px-4 py-2 text-sm font-medium text-white" style="background:var(--grad-accent)">
-    Subscribe
-  </button>
+  <div class="space-y-2">
+    <label class="block text-xs uppercase tracking-[0.3em] text-white/60" for={`${id}-email`}>Work email</label>
+    <div class="flex flex-col gap-3 sm:flex-row">
+      <input
+        id={`${id}-email`}
+        name="email"
+        type="email"
+        required
+        class="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white/90 placeholder:text-white/40 focus:border-white/30 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        placeholder="you@productteam.co.uk"
+        inputmode="email"
+      />
+      <button
+        type="submit"
+        class="inline-flex w-full items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold text-white transition sm:w-auto disabled:opacity-60 disabled:cursor-not-allowed"
+        style="background:var(--grad-accent)"
+      >
+        Subscribe to updates
+      </button>
+    </div>
+  </div>
 
   <p id={`${id}-status`} class="text-sm" role="status" aria-live="polite"></p>
 </form>
 
-<script>
-  const form = document.currentScript?.previousElementSibling as HTMLFormElement | null;
-  const status = form?.querySelector('[role="status"]') as HTMLElement | null;
+<script is:inline>
+  const form = document.currentScript?.previousElementSibling;
+  const status = form?.querySelector('[role="status"]');
+  const submitButton = form?.querySelector('button[type="submit"]');
 
-  form?.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    if (!form) return;
-    const data = new FormData(form);
-    status && (status.textContent = 'Submitting…');
+  const setStatus = (message, tone = 'muted') => {
+    if (!status) return;
+    status.textContent = message;
+    status.classList.remove('text-emerald-400', 'text-rose-400', 'text-white/60');
+    const toneClass = tone === 'success' ? 'text-emerald-400' : tone === 'error' ? 'text-rose-400' : 'text-white/60';
+    status.classList.add(toneClass);
+  };
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!(form instanceof HTMLFormElement)) return;
+
+    submitButton?.setAttribute('disabled', 'true');
+    setStatus('Submitting your details...');
+
     try {
-      const res = await fetch('/api/subscribe', { method: 'POST', body: data });
-      const j = await res.json();
-      if (res.ok) {
-        status && (status.textContent = 'Thanks! Please check your inbox.');
+      const response = await fetch(form.action, { method: 'POST', body: new FormData(form) });
+      const payload = await response.json().catch(() => ({}));
+
+      if (response.ok) {
+        setStatus('Thank you. Please check your inbox for confirmation.', 'success');
         form.reset();
       } else {
-        status && (status.textContent = j?.message ?? 'Something went wrong.');
+        setStatus(payload?.message ?? 'Something went wrong. Please try again.', 'error');
       }
     } catch {
-      status && (status.textContent = 'Network error. Try again.');
+      setStatus('Network error. Please try again.', 'error');
+    } finally {
+      submitButton?.removeAttribute('disabled');
     }
   });
 </script>

@@ -1,0 +1,94 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+
+const teams = [
+  {
+    name: 'Sales & solutions',
+    description: 'Shape your rollout, explore integration paths, and discuss pricing that matches your volumes.',
+    email: 'sales@acmepay.com',
+    response: 'Replies within one business day.'
+  },
+  {
+    name: 'Customer support',
+    description: 'Get help with product questions, incidents, webhook behaviour, or daily tooling.',
+    email: 'support@acmepay.com',
+    response: 'Live coverage 24/5 with weekend on-call for urgent issues.'
+  },
+  {
+    name: 'Compliance & security',
+    description: 'Request due diligence packs, vendor reviews, or report a security concern.',
+    email: 'security@acmepay.com',
+    response: 'Acknowledges within 12 hours and follows up within 48 hours.'
+  }
+];
+---
+
+<Marketing
+  title="AcmePay | Contact our team"
+  description="Talk to AcmePay about payments, payouts, and compliance. Reach sales, support, or security specialists directly or request a guided introduction."
+>
+  <section class="relative isolate overflow-hidden py-24">
+    <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-emerald-500/10 via-transparent to-transparent blur-3xl"></div>
+    <Container>
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs uppercase tracking-[0.45em] text-white/40">Contact</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">Speak with the AcmePay team</h1>
+        <p class="mt-4 text-lg text-white/70">
+          Complete the form or contact the right specialist. We will follow up with next steps shaped around your organisation.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <Section eyebrow="Direct lines" title="We are here to help">
+    <div class="grid gap-6 md:grid-cols-3">
+      {teams.map((team) => (
+        <div class="glass surface-alt rounded-3xl p-6 text-sm leading-relaxed text-white/70">
+          <h3 class="text-lg font-semibold text-white">{team.name}</h3>
+          <p class="mt-3">{team.description}</p>
+          <p class="mt-4 text-white"><a class="underline decoration-indigo-400/60 underline-offset-4 transition hover:decoration-indigo-300" href={`mailto:${team.email}`}>{team.email}</a></p>
+          <p class="mt-2 text-xs uppercase tracking-[0.3em] text-white/40">{team.response}</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Contact form" title="Prefer a guided introduction?">
+    <div class="glass surface-alt rounded-3xl p-8">
+      <form class="grid gap-6 md:grid-cols-2" action="https://formspree.io/f/xbjvrrry" method="POST">
+        <label class="flex flex-col gap-2 text-sm text-white/80">
+          Name
+          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none" type="text" name="name" required />
+        </label>
+        <label class="flex flex-col gap-2 text-sm text-white/80">
+          Company
+          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none" type="text" name="company" required />
+        </label>
+        <label class="flex flex-col gap-2 text-sm text-white/80">
+          Work email
+          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none md:col-span-2" type="email" name="email" required />
+        </label>
+        <label class="flex flex-col gap-2 text-sm text-white/80 md:col-span-2">
+          How can we help?
+          <textarea class="min-h-[140px] rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none" name="message" required></textarea>
+        </label>
+        <div>
+          <button class="inline-flex items-center justify-center rounded-full bg-indigo-500 px-6 py-3 text-sm font-semibold text-white shadow-[0_20px_40px_rgba(99,102,241,0.35)] transition hover:bg-indigo-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-300" type="submit">Send enquiry</button>
+          <p class="mt-3 text-xs text-white/50">By sending this form you agree to our <a class="underline decoration-indigo-400/60 underline-offset-4" href="/privacy">privacy policy</a>.</p>
+        </div>
+      </form>
+    </div>
+  </Section>
+
+  <Section eyebrow="Stay in the loop" title="Product updates and launch alerts">
+    <div class="max-w-xl">
+      <p class="text-sm text-white/70">Join product and operations leaders receiving monthly digests on new releases, compliance notes, and practical scaling guidance.</p>
+      <div class="mt-6">
+        <NewsletterForm />
+      </div>
+    </div>
+  </Section>
+</Marketing>

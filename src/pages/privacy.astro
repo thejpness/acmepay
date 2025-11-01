@@ -1,0 +1,80 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+import Container from '../components/Container.astro';
+
+const lastUpdated = '12 April 2024';
+---
+
+<Marketing
+  title="AcmePay | Privacy policy"
+  description="Understand how AcmePay collects, uses, and protects personal data across our payments platform, supporting compliance in every region we serve."
+>
+  <section class="relative isolate overflow-hidden py-24">
+    <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-sky-500/10 via-transparent to-transparent blur-3xl"></div>
+    <Container>
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs uppercase tracking-[0.45em] text-white/40">Privacy</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">Privacy policy</h1>
+        <p class="mt-4 text-lg text-white/70">
+          We treat customer and end-user data with the same rigour we apply to financial flows: secure, encrypted, and respectful of regional regulations.
+        </p>
+        <p class="mt-6 text-xs uppercase tracking-[0.3em] text-white/40">Last updated {lastUpdated}</p>
+      </div>
+    </Container>
+  </section>
+
+  <section class="pb-24">
+    <Container>
+      <article class="mx-auto max-w-3xl space-y-10 text-sm leading-relaxed text-white/70">
+        <section>
+          <h2 class="text-2xl font-semibold text-white">1. Data we collect</h2>
+          <p class="mt-3">AcmePay collects information in three primary categories:</p>
+          <ul class="mt-3 space-y-2 list-disc pl-6">
+            <li>Account data you provide to create and maintain your business profile, including team member details.</li>
+            <li>Operational data generated through your use of our APIs, webhooks, and dashboard such as transaction metadata.</li>
+            <li>Diagnostics and security data (IP addresses, device signatures) that help us keep the platform stable and safe.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white">2. How we use your data</h2>
+          <p class="mt-3">We use the information we collect to deliver and improve our services, including:</p>
+          <ul class="mt-3 space-y-2 list-disc pl-6">
+            <li>Providing, maintaining, and supporting the AcmePay platform.</li>
+            <li>Monitoring fraud and abuse, and enforcing applicable terms.</li>
+            <li>Communicating updates and responding to your requests, subject to your marketing preferences.</li>
+            <li>Complying with legal obligations and assisting in regulatory inquiries.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white">3. Sharing and disclosure</h2>
+          <p class="mt-3">We never sell personal data. We share information only with:</p>
+          <ul class="mt-3 space-y-2 list-disc pl-6">
+            <li>Trusted subprocessors who assist in delivering our services (hosting, analytics, communications).</li>
+            <li>Financial partners and acquiring banks as necessary to process payments.</li>
+            <li>Regulators, law enforcement, or other parties when required by law or to protect rights and safety.</li>
+          </ul>
+          <p class="mt-3">A current list of subprocessors is available on request. We execute DPAs and uphold Standard Contractual Clauses where required.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white">4. Your choices and rights</h2>
+          <p class="mt-3">Depending on your location, you may have rights to access, correct, delete, or restrict the processing of your personal data. You can exercise these rights by contacting us at <a class="underline decoration-indigo-400/60 underline-offset-4" href="mailto:privacy@acmepay.com">privacy@acmepay.com</a>.</p>
+          <p class="mt-3">We respond to verified requests within 30 days. If we process data on behalf of your customers, we will support you in honouring their requests within the timelines required by law.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white">5. Data retention & transfers</h2>
+          <p class="mt-3">We retain information as long as necessary to provide services, comply with obligations, and resolve disputes. When data is no longer needed it is securely deleted or anonymised.</p>
+          <p class="mt-3">For cross-border transfers, we rely on adequacy decisions or approved contractual safeguards. Customers may request data residency controls to keep production data in specific regions.</p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-white">6. Contact</h2>
+          <p class="mt-3">Questions or concerns about privacy can be directed to <a class="underline decoration-indigo-400/60 underline-offset-4" href="mailto:privacy@acmepay.com">privacy@acmepay.com</a>. If you are located in the EU or UK, you may also contact our representative at eu-rep@acmepay.com.</p>
+        </section>
+      </article>
+    </Container>
+  </section>
+</Marketing>

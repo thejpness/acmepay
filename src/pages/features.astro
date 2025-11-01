@@ -1,0 +1,142 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import FAQ from '../components/FAQ.astro';
+import Button from '../components/Button.astro';
+
+const productHighlights = [
+  {
+    title: 'Unified payments',
+    icon: 'lucide:merge',
+    copy: 'Cards, bank transfers, and local methods run through one contract, one API, and one dashboard with consistent reporting.'
+  },
+  {
+    title: 'Predictable ledgering',
+    icon: 'lucide:files',
+    copy: 'Tie every payment event to a double-entry ledger so finance tracks balances, reserves, and settlements in real time.'
+  },
+  {
+    title: 'Compliance-ready',
+    icon: 'lucide:shield-check',
+    copy: 'Granular permissions, policy reminders, and automated evidence help your organisation stay audit-ready without extra tooling.'
+  }
+];
+
+const automationTracks = [
+  {
+    title: 'Risk automation',
+    icon: 'lucide:radiation',
+    copy: 'Blend device intelligence, velocity rules, and manual review queues to reduce chargebacks without adding headcount.'
+  },
+  {
+    title: 'Revenue operations',
+    icon: 'lucide:line-chart',
+    copy: 'Adaptive routing and retry logic respond to issuer behaviour in real time so more genuine transactions settle first time.'
+  },
+  {
+    title: 'Embedded payouts',
+    icon: 'lucide:workflow',
+    copy: 'Trigger payouts from webhooks or the console with configurable holds, approvals, and messaging for counterparties.'
+  }
+];
+
+const faqs = [
+  {
+    q: 'Can we migrate in phases?',
+    a: 'Yes. Run AcmePay alongside your current provider and move traffic by flow. SDKs, bulk import tools, and sandbox mirrors support a controlled migration.'
+  },
+  {
+    q: 'Do you support multi-region routing?',
+    a: 'AcmePay operates on a global edge network with data residency controls. Set preferred regions, fallback ordering, and settlement currencies per market.'
+  },
+  {
+    q: 'How flexible are the dashboards?',
+    a: 'Dashboards ship with best-practice defaults, and every chart, workflow, and alert can be customised per role. You can also embed widgets into your own admin tools.'
+  }
+];
+---
+
+<Marketing
+  title="AcmePay | Payments platform features"
+  description="Explore how AcmePay helps teams integrate secure payments quickly, automate risk controls, and manage payouts with real-time visibility."
+>
+  <section class="relative isolate overflow-hidden py-24">
+    <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-indigo-500/10 via-transparent to-transparent blur-3xl"></div>
+    <Container>
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs uppercase tracking-[0.45em] text-white/40">Product overview</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">One payments platform that keeps every team aligned</h1>
+        <p class="mt-4 text-lg text-white/70">
+          AcmePay brings APIs, dashboards, and automation together so product, operations, and finance teams work from the same trusted data.
+        </p>
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <Button kind="primary" href="/pricing">Start now</Button>
+          <Button kind="secondary" href="/features">Explore features</Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Section eyebrow="Core platform" title="Beyond a checkout button" desc="AcmePay connects orchestration, reporting, and compliance into a single workflow so you can ship confidently without reworking your stack.">
+    <div class="grid gap-6 md:grid-cols-3">
+      {productHighlights.map((item) => (
+        <FeatureCard title={item.title} icon={item.icon}>{item.copy}</FeatureCard>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Automation" title="Automate beyond acceptance" desc="Coordinate intelligence across the full payment lifecycle with infrastructure that supports customers and finance teams alike.">
+    <div class="grid gap-6 md:grid-cols-3">
+      {automationTracks.map((item) => (
+        <FeatureCard title={item.title} icon={item.icon}>{item.copy}</FeatureCard>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="How it works" title="Integrate the way your stack expects">
+    <div class="grid gap-8 md:grid-cols-2">
+      <div class="glass surface-alt rounded-3xl p-8">
+        <h3 class="text-xl font-semibold">API first</h3>
+        <p class="mt-3 text-white/70">Type-safe SDKs, versioned APIs, and OpenAPI specs help engineers integrate quickly with tooling they already use.</p>
+        <ul class="mt-6 space-y-3 text-sm text-white/70">
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:terminal-square" aria-hidden="true"></span>
+            REST, GraphQL, and webhook subscriptions for the events that matter to your product.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:braces" aria-hidden="true"></span>
+            Instant client libraries for TypeScript, Python, and Go with native retries and observability hooks.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:lock" aria-hidden="true"></span>
+            OAuth, API keys, and granular role-based access with audit logging out of the box.
+          </li>
+        </ul>
+      </div>
+      <div class="glass surface-alt rounded-3xl p-8">
+        <h3 class="text-xl font-semibold">No-code friendly</h3>
+        <p class="mt-3 text-white/70">Launch flows without waiting on a release cycle. Business teams can manage copy, risk rules, and payout schedules straight from the dashboard.</p>
+        <ul class="mt-6 space-y-3 text-sm text-white/70">
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:toggle-left" aria-hidden="true"></span>
+            Drag-and-drop workflow builder with version history and approvals for governance.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:layout-grid" aria-hidden="true"></span>
+            Embed payment elements that inherit your brand in just a few clicks.
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="iconify mt-1 text-indigo-300" data-icon="lucide:users" aria-hidden="true"></span>
+            Shared workspaces keep product, finance, and support aligned on the same source of truth.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <Section eyebrow="FAQ" title="What teams ask before switching">
+    <FAQ items={faqs} />
+  </Section>
+</Marketing>

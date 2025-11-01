@@ -1,9 +1,24 @@
 ---
-const { kind = 'primary', href = '#', ariaLabel } = Astro.props as { kind?: 'primary'|'secondary'|'ghost'; href?: string; ariaLabel?: string; };
+const { kind = 'primary', href = '#', ariaLabel } = Astro.props as {
+  kind?: 'primary' | 'secondary' | 'ghost';
+  href?: string;
+  ariaLabel?: string;
+};
+
 const cls = {
-  primary: 'text-white px-4 py-2 rounded-xl font-medium',
-  secondary: 'px-4 py-2 rounded-xl font-medium border border-white/15 hover:bg-white/5',
-  ghost: 'px-4 py-2 rounded-xl font-medium text-white/80 hover:text-white'
+  primary:
+    'inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-[0_20px_40px_rgba(99,102,241,0.35)] transition hover:shadow-[0_25px_50px_rgba(99,102,241,0.45)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+  secondary:
+    'inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/35 hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500',
+  ghost:
+    'inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white/70 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500'
 }[kind];
 ---
-<a href={href} aria-label={ariaLabel} class={cls} style={kind==='primary' ? 'background:var(--grad-accent)' : ''}><slot /></a>
+<a
+  href={href}
+  aria-label={ariaLabel}
+  class={cls}
+  style={kind === 'primary' ? 'background:var(--grad-accent)' : ''}
+>
+  <slot />
+</a>

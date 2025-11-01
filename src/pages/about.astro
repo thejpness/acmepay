@@ -1,0 +1,75 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+import Container from '../components/Container.astro';
+import Section from '../components/Section.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+
+const values = [
+  {
+    title: 'Operate with empathy',
+    icon: 'lucide:heart-handshake',
+    copy: 'We build with finance, product, and operations teams in mind, choosing thoughtful defaults over hidden complexity.'
+  },
+  {
+    title: 'Own the craft',
+    icon: 'lucide:pen-tool',
+    copy: 'Quality is a feature. We ship predictable releases, high test coverage, and resilient infrastructure you can rely on.'
+  },
+  {
+    title: 'Default to transparent',
+    icon: 'lucide:radar',
+    copy: 'Customers deserve clarity. From pricing to roadmaps, we share the data and context behind our decisions.'
+  }
+];
+---
+
+<Marketing
+  title="AcmePay | About our team"
+  description="Meet the AcmePay team building a secure payments platform for modern product, operations, and finance leaders."
+>
+  <section class="relative isolate overflow-hidden py-24">
+    <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-blue-500/10 via-transparent to-transparent blur-3xl"></div>
+    <Container>
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs uppercase tracking-[0.45em] text-white/40">About AcmePay</p>
+        <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">Money movement powered by trusted people</h1>
+        <p class="mt-4 text-lg text-white/70">
+          We are a fintech team focused on removing complexity between your product, your back office, and the global payment networks.
+        </p>
+      </div>
+    </Container>
+  </section>
+
+  <Section eyebrow="Our story" title="From disjointed stacks to a unified platform" desc="AcmePay was created to replace fragmented payment providers, spreadsheets, and manual reconciliations with one platform that serves product, finance, and operations teams together.">
+    <div class="glass surface-alt space-y-6 rounded-3xl p-8 text-sm leading-relaxed text-white/70">
+      <p>We began by redesigning the ledger so every transaction feeds a single, trusted source of truth for multi-entity operations.</p>
+      <p>Next we focused on orchestration backed by data. Dynamic retries, granular routing, and no-code risk policies help teams protect revenue without extra headcount.</p>
+      <p>Today our customers process billions across 30+ countries, supported by a distributed team with deep payments, risk, and infrastructure experience.</p>
+    </div>
+  </Section>
+
+  <Section eyebrow="Values" title="Principles we hire and build around">
+    <div class="grid gap-6 md:grid-cols-3">
+      {values.map((value) => (
+        <FeatureCard title={value.title} icon={value.icon}>{value.copy}</FeatureCard>
+      ))}
+    </div>
+  </Section>
+
+  <Section eyebrow="Team" title="Global collaboration, local expertise">
+    <div class="glass surface-alt rounded-3xl p-8">
+      <h3 class="text-xl font-semibold">Locations</h3>
+      <p class="mt-3 text-white/70">We are distributed across North America, the UK, Singapore, and Australia with collaboration hubs in New York and London.</p>
+      <div class="mt-6 grid gap-4 text-sm text-white/70 md:grid-cols-2">
+        <div>
+          <h4 class="text-white">Leadership</h4>
+          <p class="mt-1">Operators from leading fintech and banking organisations bring experience scaling regulated financial products.</p>
+        </div>
+        <div>
+          <h4 class="text-white">Advisors</h4>
+          <p class="mt-1">Compliance, banking, and treasury experts guide our roadmap so customers remain confident in every market.</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+</Marketing>

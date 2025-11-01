@@ -1,27 +1,74 @@
 ---
 const { tabs = [] } = Astro.props as { tabs: { id: string; label: string; content: string }[] };
 ---
-<div class="glass p-4 rounded-2xl" client:load>
-  <div role="tablist" class="flex gap-2">
+<div class="glass rounded-2xl p-4" data-tabs>
+  <div role="tablist" aria-orientation="horizontal" class="flex gap-2">
     {tabs.map((t, i) => (
-      <button role="tab" aria-selected={i===0} data-tab={t.id} class="px-3 py-1 rounded-md text-sm hover:bg-white/5">{t.label}</button>
+      <button
+        role="tab"
+        id={`${t.id}-tab`}
+        data-tab={t.id}
+        aria-controls={t.id}
+        aria-selected={i === 0}
+        tabindex={i === 0 ? 0 : -1}
+        class="rounded-md px-3 py-1 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 hover:bg-white/5 aria-selected:bg-white/10 aria-selected:text-white"
+      >
+        {t.label}
+      </button>
     ))}
   </div>
   <div class="mt-4 space-y-2">
     {tabs.map((t, i) => (
-      <div role="tabpanel" id={t.id} hidden={i!==0} class="text-sm text-white/80">{t.content}</div>
+      <div
+        role="tabpanel"
+        id={t.id}
+        aria-labelledby={`${t.id}-tab`}
+        aria-hidden={i !== 0}
+        tabindex="0"
+        hidden={i !== 0}
+        class="text-sm text-white/80"
+      >
+        {t.content}
+      </div>
     ))}
   </div>
 </div>
-<script>
-  const root = document.currentScript?.previousElementSibling as HTMLElement | null;
+<script is:inline>
+  const root = document.currentScript?.previousElementSibling;
+
   if (root) {
-    const tabs = [...root.querySelectorAll('[role="tab"]')] as HTMLButtonElement[];
-    const panels = [...root.querySelectorAll('[role="tabpanel"]')] as HTMLElement[];
-    tabs.forEach((btn) => btn.addEventListener('click', () => {
-      tabs.forEach(b => b.setAttribute('aria-selected','false'));
-      btn.setAttribute('aria-selected','true');
-      panels.forEach(p => p.hidden = p.id !== btn.dataset.tab);
-    }));
+    const tabs = [...root.querySelectorAll('[role="tab"]')].filter((el) => el instanceof HTMLElement);
+    const panels = [...root.querySelectorAll('[role="tabpanel"]')].filter((el) => el instanceof HTMLElement);
+
+    if (tabs.length === 0 || panels.length === 0) {
+      return;
+    }
+
+    const setActive = (index) => {
+      tabs.forEach((tab, i) => {
+        const isActive = i === index;
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+        const panel = panels[i];
+        if (panel) {
+          panel.toggleAttribute('hidden', !isActive);
+          panel.setAttribute('aria-hidden', String(!isActive));
+        }
+      });
+      const activeTab = tabs[index];
+      activeTab.focus({ preventScroll: true });
+    };
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => setActive(index));
+      tab.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+          event.preventDefault();
+          const dir = event.key === 'ArrowRight' ? 1 : -1;
+          const next = (index + dir + tabs.length) % tabs.length;
+          setActive(next);
+        }
+      });
+    });
   }
 </script>
