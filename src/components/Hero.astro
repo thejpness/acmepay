@@ -1,0 +1,56 @@
+---
+import Button from './Button.astro';
+
+const heroImg = '/og-image.png'; // replace with product mock later
+---
+
+<section class="relative overflow-hidden">
+  <!-- subtle CSS-only parallax: gradient layer moves on scroll via background-attachment -->
+  <div class="pointer-events-none absolute inset-0" style="background: var(--grad-accent); opacity:.12; filter: blur(60px); background-attachment: fixed;"></div>
+
+  <div class="mx-auto max-w-7xl px-4 py-24 md:py-32 grid md:grid-cols-2 items-center gap-12">
+    <div data-animate="fade-up" class="space-y-6">
+      <p class="text-sm uppercase tracking-[0.2em] text-indigo-300/90">AcmePay</p>
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight">
+        Payments that feel <span class="bg-clip-text text-transparent" style="background:var(--grad-accent)">instant</span>.
+      </h1>
+      <p class="text-lg text-white/70 max-w-prose">
+        Build, launch, and scale with a secure payments platform engineered for modern teams.
+      </p>
+      <div class="flex gap-3">
+        <Button kind="primary" href="/pricing">Start now</Button>
+        <Button kind="secondary" href="/features" ariaLabel="Learn more about features">Learn more</Button>
+      </div>
+    </div>
+
+    <div data-animate="fade-up" class="glass p-4 md:p-6 rounded-3xl">
+      <img src={heroImg} width="1200" height="630" alt="Product interface mockup placeholder" loading="eager" class="rounded-2xl aspect-video object-cover" />
+    </div>
+  </div>
+</section>
+
+<script>
+  // Option A: zero-dep fade-up using IntersectionObserver + Web Animations
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (!reduce && 'IntersectionObserver' in window) {
+    const els = document.querySelectorAll('[data-animate="fade-up"]');
+
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.animate(
+            [
+              { opacity: 0, transform: 'translateY(12px)' },
+              { opacity: 1, transform: 'translateY(0)' }
+            ],
+            { duration: 600, easing: 'ease-out', fill: 'forwards' }
+          );
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    els.forEach((el) => io.observe(el));
+  }
+</script>

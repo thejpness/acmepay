@@ -1,0 +1,38 @@
+---
+import Marketing from '../layouts/Marketing.astro';
+import Hero from '../components/Hero.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import PricingTier from '../components/PricingTier.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+
+const features = [
+  { title: 'Performance', icon: 'lucide:gauge' , copy: 'Low-latency APIs and webhooks built for scale.'},
+  { title: 'Security', icon: 'lucide:shield', copy: 'Tokenized flows, role-based access, audit trails.'},
+  { title: 'Payouts', icon: 'lucide:banknote', copy: 'Faster settlements with flexible schedules.'}
+];
+---
+
+<Marketing>
+  <Hero />
+
+  <section class="mx-auto max-w-7xl px-4 py-20">
+    <div class="grid gap-6 md:grid-cols-3">
+      {features.map(f => (
+        <FeatureCard title={f.title} icon={f.icon}>{f.copy}</FeatureCard>
+      ))}
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 pb-20">
+    <div class="grid gap-6 md:grid-cols-3">
+      <PricingTier name="Starter" price="$0" features={['1k transactions', 'Basic analytics', 'Email support']} />
+      <PricingTier name="Growth" price="$49" features={['50k transactions', 'Advanced analytics', 'Priority support']} popular />
+      <PricingTier name="Scale" price="$199" features={['Unlimited transactions', 'SLA & SSO', 'Dedicated CSM']} />
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pb-28">
+    <h2 class="text-2xl font-semibold mb-4">Stay in the loop</h2>
+    <NewsletterForm />
+  </section>
+</Marketing>

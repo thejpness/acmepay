@@ -1,0 +1,9 @@
+---
+const { kind = 'primary', href = '#', ariaLabel } = Astro.props as { kind?: 'primary'|'secondary'|'ghost'; href?: string; ariaLabel?: string; };
+const cls = {
+  primary: 'text-white px-4 py-2 rounded-xl font-medium',
+  secondary: 'px-4 py-2 rounded-xl font-medium border border-white/15 hover:bg-white/5',
+  ghost: 'px-4 py-2 rounded-xl font-medium text-white/80 hover:text-white'
+}[kind];
+---
+<a href={href} aria-label={ariaLabel} class={cls} style={kind==='primary' ? 'background:var(--grad-accent)' : ''}><slot /></a>

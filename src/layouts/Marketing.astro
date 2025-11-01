@@ -1,0 +1,13 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout>
+  <Header />
+  <main id="content" class="relative">
+    <slot />
+  </main>
+  <Footer />
+</BaseLayout>

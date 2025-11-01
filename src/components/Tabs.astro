@@ -1,0 +1,27 @@
+---
+const { tabs = [] } = Astro.props as { tabs: { id: string; label: string; content: string }[] };
+---
+<div class="glass p-4 rounded-2xl" client:load>
+  <div role="tablist" class="flex gap-2">
+    {tabs.map((t, i) => (
+      <button role="tab" aria-selected={i===0} data-tab={t.id} class="px-3 py-1 rounded-md text-sm hover:bg-white/5">{t.label}</button>
+    ))}
+  </div>
+  <div class="mt-4 space-y-2">
+    {tabs.map((t, i) => (
+      <div role="tabpanel" id={t.id} hidden={i!==0} class="text-sm text-white/80">{t.content}</div>
+    ))}
+  </div>
+</div>
+<script>
+  const root = document.currentScript?.previousElementSibling as HTMLElement | null;
+  if (root) {
+    const tabs = [...root.querySelectorAll('[role="tab"]')] as HTMLButtonElement[];
+    const panels = [...root.querySelectorAll('[role="tabpanel"]')] as HTMLElement[];
+    tabs.forEach((btn) => btn.addEventListener('click', () => {
+      tabs.forEach(b => b.setAttribute('aria-selected','false'));
+      btn.setAttribute('aria-selected','true');
+      panels.forEach(p => p.hidden = p.id !== btn.dataset.tab);
+    }));
+  }
+</script>

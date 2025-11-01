@@ -1,0 +1,17 @@
+---
+const { title = 'Fast payouts', icon = 'lucide:zap', children } = Astro.props as {
+  title?: string;
+  icon?: string;
+  children?: any;
+};
+---
+
+<article class="glass p-6 rounded-2xl transition-transform hover:-translate-y-0.5">
+  <div class="flex items-center gap-3">
+    <span class="iconify text-xl" data-icon={icon} aria-hidden="true"></span>
+    <h3 class="text-lg font-semibold">{title}</h3>
+  </div>
+  <div class="mt-3 text-sm text-white/70">
+    <slot />
+  </div>
+</article>

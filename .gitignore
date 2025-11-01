@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+
+# Builds
+dist/
+.out/
+.vercel/
+.netlify/
+.astro/
+
+# Env & local
+.env
+.env.*
+.DS_Store
+*.local

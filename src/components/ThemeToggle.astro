@@ -1,0 +1,29 @@
+---
+const id = 'theme-toggle';
+---
+
+<button
+  id={id}
+  class="glass inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm aria-pressed:opacity-80"
+  aria-pressed="true"
+  aria-label="Toggle theme"
+  on:click={() => {}}
+  client:load
+>
+  <span class="iconify" data-icon="lucide:sun" aria-hidden="true"></span>
+  <span class="sr-only">Toggle theme</span>
+</button>
+
+<script>
+  // tiny client island
+  const btn = document.getElementById('theme-toggle');
+  function current() {
+    return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  }
+  function set(theme) {
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    try { localStorage.setItem('theme', theme); } catch {}
+    btn?.setAttribute('aria-pressed', String(theme === 'dark'));
+  }
+  btn?.addEventListener('click', () => set(current() === 'dark' ? 'light' : 'dark'));
+</script>
