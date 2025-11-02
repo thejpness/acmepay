@@ -12,24 +12,24 @@ function active(href: string) {
 }
 ---
 
-<header class="sticky top-0 z-50 pt-6">
-  <div class="mx-auto max-w-7xl px-4">
-    <div class="gradient-border glass surface-alt flex items-center justify-between gap-6 px-4 py-3 md:px-6 md:py-4">
+<header class="sticky top-0 z-50 bg-[rgba(7,11,21,0.7)] backdrop-blur-xl supports-[backdrop-filter]:bg-[rgba(7,11,21,0.6)]">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between gap-4 py-4">
       <a
-        class="flex items-center gap-2 focus:outline-none focus-visible:ring-2 ring-indigo-500 rounded-md"
+        class="flex h-11 items-center gap-2 rounded-md px-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
         href="/"
         aria-label="Go to the AcmePay homepage"
       >
-        <img src="/logos/acmepay.svg" width="28" height="28" alt="AcmePay logo" class="drop-shadow-[0_0_12px_rgba(99,102,241,0.45)]" />
-        <span class="font-semibold tracking-tight">AcmePay</span>
+        <img src="/logos/acmepay.svg" width="28" height="28" alt="AcmePay logo" class="drop-shadow-[0_0_12px_rgba(99,102,241,0.45)]" decoding="async" loading="lazy" />
+        <span class="text-base font-semibold tracking-tight">AcmePay</span>
       </a>
 
-      <nav aria-label="Primary" class="hidden md:flex items-center gap-6">
+      <nav aria-label="Primary" class="hidden items-center gap-4 md:flex">
         {nav.map((n) => (
           <a
             href={n.href}
             aria-current={active(n.href) ? 'page' : undefined}
-            class={`group relative pb-1 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 ring-indigo-500 rounded-md ${
+            class={`group relative inline-flex min-h-[44px] items-center rounded-full px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 ${
               active(n.href)
                 ? 'text-white'
                 : 'text-white/70 hover:text-white'
@@ -37,7 +37,7 @@ function active(href: string) {
           >
             {n.label}
             <span
-              class={`absolute left-0 bottom-0 h-0.5 w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 transition-transform duration-300 ${
+              class={`pointer-events-none absolute left-0 bottom-1 h-0.5 w-full origin-left scale-x-0 rounded-full bg-gradient-to-r from-indigo-500 via-violet-500 to-fuchsia-500 transition-transform duration-300 ${
                 active(n.href) ? 'scale-x-100' : 'group-hover:scale-x-100'
               }`}
             ></span>
@@ -48,12 +48,161 @@ function active(href: string) {
       <div class="flex items-center gap-3">
         <a
           href="/pricing"
-          class="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-medium text-white/90 transition hover:border-white/30 hover:bg-white/10"
+          class="hidden sm:inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2 text-sm font-semibold text-white/90 transition hover:border-white/30 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
         >
           Start now
         </a>
-        <ThemeToggle />
+        <ThemeToggle id="theme-toggle-desktop" />
+        <button
+          type="button"
+          class="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 hover:border-white/35 hover:bg-white/10 md:hidden"
+          aria-expanded="false"
+          aria-controls="site-mobile-menu"
+          data-menu-trigger
+        >
+          <span class="sr-only">Open navigation menu</span>
+          <span class="iconify text-xl" data-icon="lucide:menu" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-menu md:hidden" id="site-mobile-menu" data-open="false" hidden data-mobile-nav>
+    <div class="mobile-menu__panel flex h-full flex-col" role="dialog" aria-modal="true" aria-labelledby="mobile-menu-title">
+      <div class="flex items-center justify-between gap-4 px-6 pt-6">
+        <a
+          href="/"
+          class="flex items-center gap-2 rounded-md px-2 py-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+        >
+          <img src="/logos/acmepay.svg" width="24" height="24" alt="AcmePay logo" loading="lazy" decoding="async" />
+          <span class="text-base font-semibold tracking-tight">AcmePay</span>
+        </a>
+        <button
+          type="button"
+          class="inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/15 bg-white/5 text-white transition duration-150 ease-out hover:border-white/35 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+          data-menu-close
+        >
+          <span class="sr-only">Close menu</span>
+          <span class="iconify text-xl" data-icon="lucide:x" aria-hidden="true"></span>
+        </button>
+      </div>
+      <h2 id="mobile-menu-title" class="sr-only">Main navigation</h2>
+      <nav aria-label="Mobile" class="mt-8 flex flex-col gap-1 px-6">
+        {nav.map((n) => (
+          <a
+            href={n.href}
+            aria-current={active(n.href) ? 'page' : undefined}
+            class={`flex min-h-[48px] items-center rounded-xl px-4 text-base font-medium transition-colors duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 ${
+              active(n.href) ? 'bg-white/10 text-white' : 'text-white/80 hover:bg-white/10 hover:text-white'
+            }`}
+            data-menu-link
+          >
+            {n.label}
+          </a>
+        ))}
+      </nav>
+      <div class="mt-auto space-y-4 px-6 pb-8">
+        <a
+          href="/pricing"
+          class="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-white/30 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40"
+        >
+          Start now
+        </a>
+        <div class="inline-flex w-full items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+          <span class="text-sm font-medium text-white/80">Theme</span>
+          <ThemeToggle id="theme-toggle-mobile" />
+        </div>
       </div>
     </div>
   </div>
 </header>
+
+<script is:inline>
+  const menu = document.getElementById('site-mobile-menu');
+  const trigger = document.querySelector('[data-menu-trigger]');
+  const close = menu?.querySelector('[data-menu-close]');
+  if (menu && trigger && close) {
+    let lastFocused;
+
+    const focusableSelectors = [
+      'a[href]',
+      'button:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])'
+    ].join(', ');
+
+    const getFocusable = () =>
+      menu.querySelectorAll(focusableSelectors);
+
+    const setExpanded = (state) => {
+      trigger.setAttribute('aria-expanded', String(state));
+      menu.setAttribute('data-open', String(state));
+      if (state) {
+        menu.hidden = false;
+        document.body.classList.add('no-scroll');
+      } else {
+        document.body.classList.remove('no-scroll');
+        window.setTimeout(() => {
+          menu.hidden = true;
+        }, 200);
+      }
+    };
+
+    const handleKeydown = (event) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeMenu();
+        trigger.focus({ preventScroll: true });
+      } else if (event.key === 'Tab') {
+        const focusable = Array.from(getFocusable()).filter(
+          (el) => el instanceof HTMLElement && !el.hasAttribute('data-menu-trigger')
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    const openMenu = () => {
+      if (menu.getAttribute('data-open') === 'true') return;
+      lastFocused = document.activeElement;
+      menu.hidden = false;
+      requestAnimationFrame(() => setExpanded(true));
+      const focusable = Array.from(getFocusable()).filter((el) => el instanceof HTMLElement);
+      const target = focusable.find((el) => el instanceof HTMLElement && el.hasAttribute('data-menu-close')) || focusable[0];
+      target?.focus({ preventScroll: true });
+      document.addEventListener('keydown', handleKeydown);
+    };
+
+    const closeMenu = () => {
+      if (menu.getAttribute('data-open') !== 'true') return;
+      setExpanded(false);
+      document.removeEventListener('keydown', handleKeydown);
+      if (lastFocused instanceof HTMLElement) {
+        lastFocused.focus({ preventScroll: true });
+      }
+    };
+
+    trigger.addEventListener('click', openMenu);
+    close.addEventListener('click', closeMenu);
+
+    menu.addEventListener('click', (event) => {
+      if (event.target === menu) {
+        closeMenu();
+      }
+    });
+
+    menu.querySelectorAll('[data-menu-link]').forEach((link) => {
+      link.addEventListener('click', () => closeMenu());
+    });
+  }
+</script>

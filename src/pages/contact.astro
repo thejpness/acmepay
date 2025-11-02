@@ -30,13 +30,13 @@ const teams = [
   title="AcmePay | Contact our team"
   description="Talk to AcmePay about payments, payouts, and compliance. Reach sales, support, or security specialists directly or request a guided introduction."
 >
-  <section class="relative isolate overflow-hidden py-24">
+  <section class="relative isolate overflow-hidden py-24 sm:py-28">
     <div class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-emerald-500/10 via-transparent to-transparent blur-3xl"></div>
     <Container>
       <div class="mx-auto max-w-3xl text-center">
         <p class="text-xs uppercase tracking-[0.45em] text-white/40">Contact</p>
-        <h1 class="mt-4 text-4xl font-semibold tracking-tight md:text-5xl">Speak with the AcmePay team</h1>
-        <p class="mt-4 text-lg text-white/70">
+        <h1 class="mt-4 text-[clamp(2.75rem,4vw+1.5rem,3.9rem)] font-semibold leading-tight tracking-tight md:text-[clamp(3rem,3vw+2rem,4.75rem)]">Speak with the AcmePay team</h1>
+        <p class="mt-4 text-lg leading-relaxed text-white/70">
           Complete the form or contact the right specialist. We will follow up with next steps shaped around your organisation.
         </p>
       </div>
@@ -46,7 +46,7 @@ const teams = [
   <Section eyebrow="Direct lines" title="We are here to help">
     <div class="grid gap-6 md:grid-cols-3">
       {teams.map((team) => (
-        <div class="glass surface-alt rounded-3xl p-6 text-sm leading-relaxed text-white/70">
+        <div class="glass surface-alt flex h-full flex-col justify-between rounded-3xl p-6 text-sm leading-relaxed text-white/70">
           <h3 class="text-lg font-semibold text-white">{team.name}</h3>
           <p class="mt-3">{team.description}</p>
           <p class="mt-4 text-white"><a class="underline decoration-indigo-400/60 underline-offset-4 transition hover:decoration-indigo-300" href={`mailto:${team.email}`}>{team.email}</a></p>
@@ -61,15 +61,15 @@ const teams = [
       <form class="grid gap-6 md:grid-cols-2" action="https://formspree.io/f/xbjvrrry" method="POST">
         <label class="flex flex-col gap-2 text-sm text-white/80">
           Name
-          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none" type="text" name="name" required />
+          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none" type="text" name="name" autocomplete="name" required />
         </label>
         <label class="flex flex-col gap-2 text-sm text-white/80">
           Company
-          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none" type="text" name="company" required />
+          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none" type="text" name="company" autocomplete="organization" required />
         </label>
         <label class="flex flex-col gap-2 text-sm text-white/80">
           Work email
-          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none md:col-span-2" type="email" name="email" required />
+          <input class="rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-white focus:border-indigo-400 focus:outline-none md:col-span-2" type="email" name="email" autocomplete="email" required />
         </label>
         <label class="flex flex-col gap-2 text-sm text-white/80 md:col-span-2">
           How can we help?

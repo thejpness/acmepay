@@ -2,7 +2,7 @@
 const { tabs = [] } = Astro.props as { tabs: { id: string; label: string; content: string }[] };
 ---
 <div class="glass rounded-2xl p-4" data-tabs>
-  <div role="tablist" aria-orientation="horizontal" class="flex gap-2">
+  <div role="tablist" aria-orientation="horizontal" class="flex flex-wrap gap-2">
     {tabs.map((t, i) => (
       <button
         role="tab"
@@ -11,7 +11,7 @@ const { tabs = [] } = Astro.props as { tabs: { id: string; label: string; conten
         aria-controls={t.id}
         aria-selected={i === 0}
         tabindex={i === 0 ? 0 : -1}
-        class="rounded-md px-3 py-1 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 hover:bg-white/5 aria-selected:bg-white/10 aria-selected:text-white"
+        class="rounded-full px-4 py-2 text-sm font-medium leading-none transition duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 hover:bg-white/10 aria-selected:bg-white/15 aria-selected:text-white aria-selected:shadow-[0_0_0_1px_rgba(255,255,255,0.18)]"
       >
         {t.label}
       </button>
@@ -24,9 +24,9 @@ const { tabs = [] } = Astro.props as { tabs: { id: string; label: string; conten
         id={t.id}
         aria-labelledby={`${t.id}-tab`}
         aria-hidden={i !== 0}
-        tabindex="0"
+        tabindex={i === 0 ? 0 : -1}
         hidden={i !== 0}
-        class="text-sm text-white/80"
+        class="text-sm leading-relaxed text-white/80"
       >
         {t.content}
       </div>
@@ -53,10 +53,13 @@ const { tabs = [] } = Astro.props as { tabs: { id: string; label: string; conten
         if (panel) {
           panel.toggleAttribute('hidden', !isActive);
           panel.setAttribute('aria-hidden', String(!isActive));
+          panel.tabIndex = isActive ? 0 : -1;
         }
       });
-      const activeTab = tabs[index];
-      activeTab.focus({ preventScroll: true });
+      requestAnimationFrame(() => {
+        const activeTab = tabs[index];
+        activeTab?.focus({ preventScroll: true });
+      });
     };
 
     tabs.forEach((tab, index) => {
@@ -67,8 +70,23 @@ const { tabs = [] } = Astro.props as { tabs: { id: string; label: string; conten
           const dir = event.key === 'ArrowRight' ? 1 : -1;
           const next = (index + dir + tabs.length) % tabs.length;
           setActive(next);
+        } else if (event.key === 'Home') {
+          event.preventDefault();
+          setActive(0);
+        } else if (event.key === 'End') {
+          event.preventDefault();
+          setActive(tabs.length - 1);
         }
       });
+    });
+
+    root.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        const activeIndex = tabs.findIndex((tab) => tab.getAttribute('aria-selected') === 'true');
+        if (activeIndex !== -1) {
+          setActive(activeIndex);
+        }
+      }
     });
   }
 </script>

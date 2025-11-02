@@ -9,7 +9,7 @@ const heroImg = '/og-image.png';
     <div class="absolute -top-32 left-1/2 h-[620px] w-[620px] -translate-x-1/2 rounded-full blur-3xl glow-pulse" style="background:var(--grad-accent);"></div>
   </div>
 
-  <div class="mx-auto max-w-7xl px-4 py-24 md:py-32">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
     <div class="grid items-center gap-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]">
       <div data-animate="fade-up" class="space-y-8">
         <div class="stat-pill max-w-fit">
@@ -17,14 +17,14 @@ const heroImg = '/og-image.png';
           Payments platform for scaling teams
         </div>
 
-        <h1 class="text-4xl md:text-6xl font-semibold tracking-tight text-balance">
+        <h1 class="text-balance text-[clamp(2.5rem,5vw+1rem,3.9rem)] font-semibold leading-tight tracking-tight md:text-[clamp(3rem,3vw+2rem,4.75rem)]">
           Ship secure payments with
           <span class="gradient-text">developer-friendly control</span>.
         </h1>
 
-        <p class="max-w-xl text-lg text-white/70">
-          AcmePay unifies payments, payouts, and reconciliation so product, operations, and finance teams can launch faster,
-          monitor risk, and close the books in one control centre.
+        <p class="max-w-[60ch] text-lg leading-relaxed text-white/70">
+          AcmePay unifies payments, payouts, and reconciliation so product, operations, and finance teams can launch faster, monitor risk,
+          and close the books in one control centre.
         </p>
 
         <div class="flex flex-wrap gap-3">
@@ -57,6 +57,7 @@ const heroImg = '/og-image.png';
                 height="630"
                 alt="AcmePay dashboard showing settlement status and daily volume"
                 loading="eager"
+                decoding="async"
                 class="aspect-video w-full rounded-[1.5rem] object-cover"
               />
               <div class="absolute left-6 top-6 hidden rounded-full border border-white/20 bg-black/40 px-4 py-2 text-xs font-medium uppercase tracking-[0.3em] text-white/80 backdrop-blur md:flex">

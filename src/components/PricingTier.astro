@@ -4,15 +4,19 @@ const { name, price, features = [], popular = false } = Astro.props as {
 };
 ---
 
-<div class="relative">
+<article class="relative">
   <div
-    class={`gradient-border rounded-[1.75rem] transition-transform duration-300 hover:-translate-y-1 ${
+    class={`gradient-border rounded-[1.75rem] transition-transform duration-300 ease-out hover:-translate-y-1 focus-within:-translate-y-1 ${
       popular ? 'popular-tier' : ''
     }`}
   >
-    <div class={`glass rounded-[1.75rem] p-6 md:p-8 flex h-full flex-col ${popular ? 'bg-[rgba(15,23,42,0.82)]' : ''}`}>
+    <div class={`glass flex h-full flex-col rounded-[1.75rem] p-6 md:p-8 ${popular ? 'bg-[rgba(15,23,42,0.82)]' : ''}`}>
       {popular && (
-        <span class="stat-pill mb-6 inline-flex text-xs uppercase tracking-[0.3em] text-white/80">
+        <span
+          class="stat-pill mb-6 inline-flex text-xs uppercase tracking-[0.3em] text-white/80"
+          role="note"
+          aria-label="Most popular plan"
+        >
           <span class="stat-dot"></span>
           Recommended plan
         </span>
@@ -24,10 +28,10 @@ const { name, price, features = [], popular = false } = Astro.props as {
       </p>
       <p class="mt-2 text-sm text-white/60">Everything you need to run compliant payments operations.</p>
 
-      <ul class="mt-6 space-y-3 text-sm text-white/75">
+      <ul class="mt-6 flex flex-col gap-3 text-sm text-white/75">
         {features.map((f) => (
           <li class="flex items-start gap-3">
-            <span class="mt-1 h-2.5 w-2.5 rounded-full bg-gradient-to-r from-sky-400 to-fuchsia-500 shadow-[0_0_12px_rgba(56,189,248,0.5)]"></span>
+            <span class="mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-gradient-to-r from-sky-400 to-fuchsia-500 shadow-[0_0_12px_rgba(56,189,248,0.5)]"></span>
             <span>{f}</span>
           </li>
         ))}
@@ -42,4 +46,4 @@ const { name, price, features = [], popular = false } = Astro.props as {
       </a>
     </div>
   </div>
-</div>
+</article>

@@ -1,9 +1,11 @@
 ---
-const id = 'theme-toggle';
+/** Keep frontmatter JS-only to avoid TS diagnostics */
+const { id = 'theme-toggle' } = Astro.props;
 ---
 
 <button
   id={id}
+  data-theme-toggle
   type="button"
   class="glass inline-flex items-center gap-2 rounded-xl px-3 py-2 text-sm aria-pressed:opacity-80"
   aria-pressed="false"
@@ -14,37 +16,40 @@ const id = 'theme-toggle';
 </button>
 
 <script is:inline>
-  const button = document.getElementById('theme-toggle');
+(() => {
+  'use strict';
+  const buttons = Array.from(document.querySelectorAll('[data-theme-toggle]'));
+  if (buttons.length === 0) return;
 
-  if (button) {
-    const getStoredTheme = () => {
-      try {
-        return localStorage.getItem('theme');
-      } catch {
-        return null;
-      }
-    };
+  const getStoredTheme = () => {
+    try { return localStorage.getItem('theme'); } catch { return null; }
+  };
 
-    const currentTheme = () => (document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  const currentTheme = () =>
+    document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 
-    const applyTheme = (theme) => {
-      const next = theme === 'dark' ? 'dark' : 'light';
-      document.documentElement.classList.toggle('dark', next === 'dark');
-      try {
-        localStorage.setItem('theme', next);
-      } catch {}
-      button.setAttribute('aria-pressed', String(next === 'dark'));
-    };
+  const updateButtons = (next) => {
+    buttons.forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(next === 'dark'));
+      const icon = btn.querySelector('.iconify');
+      if (icon) icon.setAttribute('data-icon', next === 'dark' ? 'lucide:moon' : 'lucide:sun');
+    });
+  };
 
-    const stored = getStoredTheme();
-    if (stored) {
-      applyTheme(stored);
-    } else {
-      applyTheme(currentTheme());
-    }
+  const applyTheme = (theme) => {
+    const next = theme === 'dark' ? 'dark' : 'light';
+    document.documentElement.classList.toggle('dark', next === 'dark');
+    try { localStorage.setItem('theme', next); } catch {}
+    updateButtons(next);
+  };
 
+  // init
+  applyTheme(getStoredTheme() ?? currentTheme());
+
+  buttons.forEach((button) => {
     button.addEventListener('click', () => {
       applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
     });
-  }
+  });
+})();
 </script>

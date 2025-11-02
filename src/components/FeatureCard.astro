@@ -6,7 +6,7 @@ const { title = 'Fast payouts', icon = 'lucide:zap', children } = Astro.props as
 };
 ---
 
-<article class="gradient-border glass surface-alt rounded-3xl p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_40px_80px_rgba(2,6,23,0.45)]">
+<article class="gradient-border glass surface-alt flex h-full flex-col justify-between rounded-3xl p-6 transition duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_40px_80px_rgba(2,6,23,0.45)] focus-within:-translate-y-1 focus-within:shadow-[0_40px_80px_rgba(2,6,23,0.45)]">
   <div class="flex items-center gap-4">
     <span class="icon-pill">
       <span class="iconify text-lg" data-icon={icon} aria-hidden="true"></span>
